@@ -38,14 +38,53 @@ local_weather_cpmd <- read_csv(station_daily,#reads data but need to edit header
   select(date, variable, value) %>% 
   pivot_wider(names_from = "variable", values_from = "value") %>% 
   select(date, TMAX, PRCP, SNOW) %>% 
-  mutate(date = ymd(date))
+  mutate(date = ymd(date), #convert date to yy-mm-dd format
+         TMAX = TMAX / 10, #convert to oC
+         PRCP = PRCP / 10) %>% #convert to mm
+  rename_all(tolower) %>% 
+  #filter(prcp < 150) %>% #one way of dealing with anomalous data
+  mutate(snow = if_else(snow < 400, snow, NA_real_),#second way of handling anomalies
+         prcp = if_else(prcp < 150, prcp, NA_real_)) 
 
 local_weather_cpmd
 
+#IDENTIFYING PROBLEMATIC DATA WITH LINE PLOTS AND HISTOGRAMS
+
+#FOR TMAX
+
+local_weather_cpmd %>% 
+  ggplot(aes(x = date, y = tmax)) + geom_line()
+
+local_weather_cpmd %>% 
+  slice_max(n = 5, tmax) #to get the top 5 highest values
+
+local_weather_cpmd %>% 
+  ggplot(aes(x = tmax)) + geom_histogram(binwidth = 2.5)
+
+#FOR PRCP
+
+local_weather_cpmd %>% 
+  ggplot(aes(x = date, y = prcp)) + geom_line()
+
+local_weather_cpmd %>% 
+  slice_max(n = 5, prcp) #to get the top 5 highest values
+
+local_weather_cpmd %>% 
+  ggplot(aes(x = prcp)) + geom_histogram() + #most data points are to left so adjust y-axis
+  scale_y_continuous(limits = c(0, 50))
 
 
+#FOR SNOW
 
+local_weather_cpmd %>% 
+  ggplot(aes(x = date, y = snow)) + geom_line()
 
+local_weather_cpmd %>% 
+  slice_max(n = 5, snow) #to get the top 5 highest values
+
+local_weather_cpmd %>% 
+  ggplot(aes(x = snow)) + geom_histogram() + #most data points are to left so adjust y-axis
+  scale_y_continuous(limits = c(0, 50))
 
 
 
