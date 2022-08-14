@@ -11,3 +11,7 @@ rename(tolower) statement
 The downside of the filter approach is that it removes all data for the entire row
 
 Second method is the mutate with if_else function (recommended)
+
+Problem with data
+-----------------
+tmax has a bunch of NA values from 1951 t0 1955 and 1958 to 1994. So I filtered data from 1995 to 2021
