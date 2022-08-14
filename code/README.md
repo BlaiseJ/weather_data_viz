@@ -56,3 +56,8 @@ This implies that the rule of 1:10 works great as the gap between -6.6 to 3.4 is
 Changed geom_abline(intercept = 0, slope = 10, size = 1) with geom_segment 
 
 Added color aesthetics in geom_smooth and geom_segment statements to generate a color legend
+
+
+Using factors to create new calendar for snowfall in any location
+-----------------------------------------------------------------
+If you realize that all data points are not rising and falling as should be the case after plotting snowfall by year and month, create a dummy variable with zeros and add to our snowfall values so that each month will have at least a zero point that will serve as anchor for the next month's data
