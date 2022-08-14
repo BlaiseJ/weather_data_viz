@@ -1,11 +1,14 @@
 source("code/local_weather_cpmd.R")
 
 library(ggtext)
+library(scales)
 #USING LUBRIDATE AND GGPLOT2 TO WORK WITH DATES
 
 #Calculating cummulative precipitation amount each year
 
 this_year <- year(today())
+this_month <- month(today(), label = T, abbr = F)
+this_day <- ordinal(day(today())) #gives day format of 2nd, 3rd, 4th
 
 local_weather_cpmd %>% 
   select(date, prcp) %>% 
@@ -37,11 +40,11 @@ local_weather_cpmd %>%
   labs(
     x = NULL,
     y = "Cummulative precipitation (cm)",
-    title = "Through Agust 13th, the cummulative precipitation near College Park, MD is below average for 2022"
+    title = glue("Through {this_month} {this_day}, the cummulative precipitation near College Park, MD is <span style = 'color: dodgerblue'>below average</span> for {this_year}")
   ) +
   theme(
     plot.title.position = "plot",
-    plot.title = element_textbox_simple(),
+    plot.title = element_textbox_simple(margin = margin(b = 10), size = 16), #helps to wrap overlapping text to plot area, size increases title size
     panel.background = element_blank(),
     panel.grid = element_blank(),
     axis.line = element_line()

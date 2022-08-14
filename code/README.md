@@ -15,3 +15,16 @@ Second method is the mutate with if_else function (recommended)
 Problem with data
 -----------------
 tmax has a bunch of NA values from 1951 t0 1955 and 1958 to 1994. So I filtered data from 1995 to 2021
+
+Using lubridate to work with dates in ggplots
+---------------------------------------------
+Instead of using the 26 years worth of dates, I created a pseudo date called new_date by using this years date (2022) and adding to month and day of each month
+
+To make our plotted data for all other years gray and that for 2022 different color, I created a new date variable called this_year which I then added in my mutate function.
+
+I then added a color argument in ggplot which colored by is_this_year
+
+Cummulative_precipitation_plot
+------------------------------
+ggtext package helps to wrap text in the plot area
+scales pacaked helps to make day date to have the suffix nd, rd, th etc e.g. 2nd, 3rd, 4th
