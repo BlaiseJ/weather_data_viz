@@ -28,3 +28,11 @@ Cummulative_precipitation_plot
 ------------------------------
 ggtext package helps to wrap text in the plot area
 scales pacaked helps to make day date to have the suffix nd, rd, th etc e.g. 2nd, 3rd, 4th
+
+Styling facet_wrap figures
+--------------------------
+To change the panel labels outside of the y-axis to actual labels, I created a variable called neat_labels
+Add these labels in the facet_wrap statement
+I added line breaks to labels that overlapped the y-axis
+Added a horizontal line to represent x-axis for each panel using geom_hline(yintercept = 0)
+But this line seems to be clipped, so I added a cord_cartesian statement
